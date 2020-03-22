@@ -1,0 +1,22 @@
+# Camunda DB H2
+camunda-h2-dbs/
+
+# IDEA IntelliJ stuff
+/.idea
+/out/
+
+# Gradle
+.gradle
+build/
+*.iml
+*.ipr
+*.iws
+
+# Eclipse
+/.classpath
+/.settings/
+/.project
+/bin/
+
+# Visual Studio Code
+/.vscode/
