@@ -4,11 +4,14 @@ import java.util.*;
 
 public class Calculator {
 
+    private int min ;
+    private int max ;
+
     Set<Situation> situations = new HashSet<Situation>();
 
-    public Calculator() {
-        for (int i =0; i < 10; i++) {
-            for (int j=0; j < 10; j++) {
+    public Calculator(int min, int max) {
+        for (int i = min; i <= max; i++) {
+            for (int j = min; j <= max; j++) {
                 Situation situation = new Situation(i,j);
                 situations.add(situation);
             }
@@ -40,10 +43,10 @@ public class Calculator {
         return result ;
     }
 
-    public Map<Situation, List<Situation>> getIterations() {
+    public Map<Situation, List<Situation>> getIterations(IterationStrategy strategy) {
         Map<Situation,List<Situation>> result = new HashMap<Situation,List<Situation>>();
         for (Situation s: situations) {
-            result.put(s, s.getIterations());
+            result.put(s, s.getIterations(strategy));
         }
         return result ;
     }

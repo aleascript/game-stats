@@ -35,46 +35,22 @@ public class Situation {
         this.max = max;
     }
 
-    public Situation iterate() {
-        int delta = Math.abs(reduceValue(valueForOperation(max) - valueForOperation(min)));
-        int sum = reduceValue(valueForOperation(min) + valueForOperation(max)) ;
-        return new Situation(delta, sum);
+    public Situation iterate(IterationStrategy strategy) {
+        return strategy.iterate(this);
     }
 
-    public List<Situation> getIterations() {
+    public List<Situation> getIterations(IterationStrategy strategy) {
         List<Situation> result = new ArrayList<Situation>();
-        Situation iteration = iterate();
+        Situation iteration = iterate(strategy);
         while (iteration.equals(this)==false && result.contains(iteration)==false) {
             result.add(iteration);
-            iteration = iteration.iterate();
+            iteration = iteration.iterate(strategy);
         }
         return result ;
     }
 
-    private int reduceValue(int value) {
-        if (value <= 9) {
-            return value ;
-        } else {
-            String valueAsString = Integer.toString(value);
-            int firstDigit = Character.getNumericValue(valueAsString.charAt(0));
-            if (firstDigit==0) firstDigit = 10 ;
-            int secondDigit = Character.getNumericValue(valueAsString.charAt(1));
-            if (secondDigit==0) secondDigit = 10 ;
-            int result = reduceValue(firstDigit+secondDigit);
-            while (result > 9) {
-                result = reduceValue(result);
-            }
-            return result ;
-        }
-    }
 
-    private int valueForOperation(int value) {
-        if (value==0) {
-            return 10 ;
-        } else {
-            return value ;
-        }
-    }
+
 
     @Override
     public boolean equals(Object o) {
