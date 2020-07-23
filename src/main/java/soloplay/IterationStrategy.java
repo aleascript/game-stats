@@ -1,5 +1,7 @@
 package soloplay;
 
+import soloplay.Situation;
+
 public abstract class IterationStrategy {
 
     protected int maxDigit ;
