@@ -8,13 +8,9 @@ version '1.0.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-mainClassName = "soloplay.Main"
+mainClassName = "hades.Main"
 
 repositories {
-    maven {
-        name "Artifactory Proxy Maven Public"
-        url "https://artifactory-principale.enedis.fr/artifactory/proxy-maven-public"
-    }
     mavenCentral()
 }
 

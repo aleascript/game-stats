@@ -11,11 +11,13 @@ import java.util.List;
 
 @Getter
 @Setter
+@ToString
 public class Resolution {
 
     private int result ;
     private List<Pair<List<Integer>, List<Integer>>> rolls
             = new ArrayList<>();
+    private int fortune = 0 ;
 
     public void addRoll(Pair<List<Integer>,List<Integer>> roll) {
         rolls.add(roll);
@@ -25,13 +27,4 @@ public class Resolution {
         return rolls.size();
     }
 
-
-    @Override
-    public String toString() {
-        return "Resolution(" +
-                "result=" + (result > 0 ? "+"+result : result) +
-                ", rolls=" + rolls.size() +
-                ", details="+ rolls +
-                ")";
-    }
 }

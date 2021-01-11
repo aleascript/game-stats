@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
-@ToString
+@ToString(exclude={ "equality", "iterations", "resultRollNumbers"})
 public class Stats {
 
     private static final int DEFAULT_ITERATIONS = 100 ;
@@ -24,9 +24,11 @@ public class Stats {
 
     private List<Pair<Integer,Double>> resultDistribution = new ArrayList<Pair<Integer,Double>>() ;
     private List<Pair<Integer,Double>> resultRollNumbers = new ArrayList<Pair<Integer,Double>>() ;
+
     private Double equality ;
     private Double success  ;
     private Double failure  ;
+    private Double fortunes ;
 
     private Confrontation confrontation ;
 
@@ -42,10 +44,16 @@ public class Stats {
         }
 
         List<Resolution> sample = new ArrayList<Resolution>();
+        Double countFortunes = 0.0 ;
         for (int i = 1; i <= iterations; i++) {
             Resolution resolution = strategy.resolve(confrontation);
             sample.add(resolution);
+            countFortunes += resolution.getFortune();
         }
+
+        fortunes = 100 * countFortunes / iterations ;
+
+
         Map<Integer,List<Resolution>> sampleByResult = sample.stream().collect(Collectors.groupingBy(
                 resolution -> resolution.getResult()
         ));
@@ -85,6 +93,38 @@ public class Stats {
         }
 
 
+    }
+
+    public Double getPercentage(int score){
+        for (Pair<Integer,Double> pair : resultDistribution) {
+            if (pair.getValue0()==score) {
+                return pair.getValue1();
+            }
+        }
+        return 0.0;
+    }
+
+    public String asMarkdowHeader() {
+        return "|Protagoniste|Obstacle|Succes|Echec|-3|-2|-1|+1|+2|+3|Fortunes|"
+                +"\n"
+                +"|---|---|---|---|---|---|---|---|---|---|---|";
+    }
+
+    public String asMarkdownRaw() {
+        String template = "|%sD|%sD|%s|%s|%s|%s|%s|%s|%s|%s|%s|";
+        return String.format(template,
+                confrontation.getProtagonist(),
+                confrontation.getAntagonist(),
+                success,
+                failure,
+                getPercentage(-3),
+                getPercentage(-2),
+                getPercentage(-1),
+                getPercentage(1),
+                getPercentage(2),
+                getPercentage(3),
+                fortunes
+                );
     }
 
 }

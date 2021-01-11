@@ -53,4 +53,30 @@ public class Helpers {
         }
         return result ;
     }
+
+    public static List<Integer> withChaos(List<Integer> result) {
+        List<Integer> newResult = new ArrayList<>();
+        for (Integer i : result) {
+            newResult.add(i);
+            Integer chaosDice = Integer.valueOf(i) ;
+            while (chaosDice == 6) {
+                Dice dice = new Dice(6);
+                newResult.add(chaosDice);
+                chaosDice = dice.roll();
+            }
+        }
+        return  newResult;
+    }
+
+    public static List<Integer> withSimpleChaos(List<Integer> result) {
+        List<Integer> newResult = new ArrayList<>();
+        for (Integer i : result) {
+            newResult.add(i);
+            if (i==6) {
+                Dice dice = new Dice(6);
+                newResult.add(dice.roll());
+            }
+        }
+        return  newResult;
+    }
 }

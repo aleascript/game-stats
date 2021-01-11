@@ -2,7 +2,6 @@ package hades;
 
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
 
 @Slf4j
 public class Main {
@@ -11,8 +10,16 @@ public class Main {
 
     public static void main(String... args) {
         //simpleMain();
-        simpleStats(new SimpliestResolutionStrategy());
+        //simpleStats(new SimpliestResolutionStrategy());
         //simpleStats(new EscalationResolutionStrategy());
+        log.info("------------------");
+        //simpleStats(new ProtagonistResolutionStrategy());
+        //simpleStats(new BoundedProtagonistResolutionStrategy());
+        //simpleStats(new BoundedMinAndMaxProtagonistResolutionStrategy());
+        //simpleStats(new ResolutionStrategyWithChaos());
+        simpleStats(new ResolutionStrategyWithSimpleChaos());
+        log.info("------------------");
+        simpleStats(new ResolutionStategySimpliest());
     }
 
     public static void simpleStats(ResolutionStrategy strategy) {
@@ -20,43 +27,114 @@ public class Main {
         int iterations = 100000 ;
         Stats stats = new Stats();
         stats.setIterations(iterations);
+        log.info(stats.asMarkdowHeader());
         stats.setConfrontation(new Confrontation(1, 1));
         stats.doStats(strategy);
-        log.info(stats.toString());
+        //log.info(stats.toString());
+        log.info(stats.asMarkdownRaw());
         stats.setConfrontation(new Confrontation(2, 2));
         stats.doStats(strategy);
-        log.info(stats.toString());
+        //log.info(stats.toString());
+        log.info(stats.asMarkdownRaw());
         stats.setConfrontation(new Confrontation(3, 3));
         stats.doStats(strategy);
-        log.info(stats.toString());
+        //log.info(stats.toString());
+        log.info(stats.asMarkdownRaw());
         stats.setConfrontation(new Confrontation(4, 4));
         stats.doStats(strategy);
-        log.info(stats.toString());
-
-        stats.setConfrontation(new Confrontation(1, 1));
+        //log.info(stats.toString());
+        log.info(stats.asMarkdownRaw());
+        stats.setConfrontation(new Confrontation(8, 8));
         stats.doStats(strategy);
-        log.info(stats.toString());
+        //log.info(stats.toString());
+        log.info(stats.asMarkdownRaw());
+
         stats.setConfrontation(new Confrontation(1, 2));
         stats.doStats(strategy);
-        log.info(stats.toString());
-        stats.setConfrontation(new Confrontation(1, 3));
+        //log.info(stats.toString());
+        log.info(stats.asMarkdownRaw());
+        stats.setConfrontation(new Confrontation(2, 3));
         stats.doStats(strategy);
-        log.info(stats.toString());
+        //log.info(stats.toString());
+        log.info(stats.asMarkdownRaw());
+        stats.setConfrontation(new Confrontation(3, 4));
+        stats.doStats(strategy);
+        //log.info(stats.toString());
+        log.info(stats.asMarkdownRaw());
+        stats.setConfrontation(new Confrontation(4, 5));
+        stats.doStats(strategy);
+        //log.info(stats.toString());
+        log.info(stats.asMarkdownRaw());
+        stats.setConfrontation(new Confrontation(8, 9));
+        stats.doStats(strategy);
+        //log.info(stats.toString());
+        log.info(stats.asMarkdownRaw());
 
         stats.setConfrontation(new Confrontation(2, 1));
         stats.doStats(strategy);
-        log.info(stats.toString());
+        //log.info(stats.toString());
+        log.info(stats.asMarkdownRaw());
         stats.setConfrontation(new Confrontation(3, 2));
         stats.doStats(strategy);
-        log.info(stats.toString());
+        //log.info(stats.toString());
+        log.info(stats.asMarkdownRaw());
         stats.setConfrontation(new Confrontation(4, 3));
         stats.doStats(strategy);
-        log.info(stats.toString());
-        stats.setConfrontation(new Confrontation(5,4 ));
+        //log.info(stats.toString());
+        log.info(stats.asMarkdownRaw());
+        stats.setConfrontation(new Confrontation(5, 4));
         stats.doStats(strategy);
-        log.info(stats.toString());
+        //log.info(stats.toString());
+        log.info(stats.asMarkdownRaw());
+        stats.setConfrontation(new Confrontation(9, 8));
+        stats.doStats(strategy);
+        //log.info(stats.toString());
+        log.info(stats.asMarkdownRaw());
 
+
+        stats.setConfrontation(new Confrontation(1, 2));
+        stats.doStats(strategy);
+        //log.info(stats.toString());
+        log.info(stats.asMarkdownRaw());
+        stats.setConfrontation(new Confrontation(1, 3));
+        stats.doStats(strategy);
+        //log.info(stats.toString());
+        log.info(stats.asMarkdownRaw());
+        stats.setConfrontation(new Confrontation(1, 4));
+        stats.doStats(strategy);
+        //log.info(stats.toString());
+        log.info(stats.asMarkdownRaw());
+        stats.setConfrontation(new Confrontation(1,5 ));
+        stats.doStats(strategy);
+        //log.info(stats.toString());
+        log.info(stats.asMarkdownRaw());
+        stats.setConfrontation(new Confrontation(1,8 ));
+        stats.doStats(strategy);
+        //log.info(stats.toString());
+        log.info(stats.asMarkdownRaw());
+
+        stats.setConfrontation(new Confrontation(2, 1));
+        stats.doStats(strategy);
+        //log.info(stats.toString());
+        log.info(stats.asMarkdownRaw());
         stats.setConfrontation(new Confrontation(3, 1));
+        stats.doStats(strategy);
+        //log.info(stats.toString());
+        log.info(stats.asMarkdownRaw());
+        stats.setConfrontation(new Confrontation(4, 1));
+        stats.doStats(strategy);
+        //log.info(stats.toString());
+        log.info(stats.asMarkdownRaw());
+        stats.setConfrontation(new Confrontation(5,1 ));
+        stats.doStats(strategy);
+        //log.info(stats.toString());
+        log.info(stats.asMarkdownRaw());
+        stats.setConfrontation(new Confrontation(8,1 ));
+        stats.doStats(strategy);
+        //log.info(stats.toString());
+        log.info(stats.asMarkdownRaw());
+
+        /*stats.setConfrontation(new Confrontation(3, 1));
         stats.doStats(strategy);
         log.info(stats.toString());
         stats.setConfrontation(new Confrontation(4, 2));
@@ -67,7 +145,7 @@ public class Main {
         log.info(stats.toString());
         stats.setConfrontation(new Confrontation(6,4 ));
         stats.doStats(strategy);
-        log.info(stats.toString());
+        log.info(stats.toString());*/
 
     }
 
