@@ -12,14 +12,17 @@ public class Main {
         //simpleMain();
         //simpleStats(new SimpliestResolutionStrategy());
         //simpleStats(new EscalationResolutionStrategy());
-        log.info("------------------");
+
         //simpleStats(new ProtagonistResolutionStrategy());
         //simpleStats(new BoundedProtagonistResolutionStrategy());
         //simpleStats(new BoundedMinAndMaxProtagonistResolutionStrategy());
         //simpleStats(new ResolutionStrategyWithChaos());
-        simpleStats(new ResolutionStrategyWithSimpleChaos());
         log.info("------------------");
         simpleStats(new ResolutionStategySimpliest());
+        log.info("------------------");
+        simpleStats(new ResolutionStategySimplier());
+        log.info("------------------");
+        simpleStats(new ResolutionStrategyWithSimpleChaos());
     }
 
     public static void simpleStats(ResolutionStrategy strategy) {
@@ -43,6 +46,15 @@ public class Main {
         stats.setConfrontation(new Confrontation(4, 4));
         stats.doStats(strategy);
         //log.info(stats.toString());
+        log.info(stats.asMarkdownRaw());
+        stats.setConfrontation(new Confrontation(5, 5));
+        stats.doStats(strategy);
+        log.info(stats.asMarkdownRaw());
+        stats.setConfrontation(new Confrontation(6,6));
+        stats.doStats(strategy);
+        log.info(stats.asMarkdownRaw());
+        stats.setConfrontation(new Confrontation(7, 7));
+        stats.doStats(strategy);
         log.info(stats.asMarkdownRaw());
         stats.setConfrontation(new Confrontation(8, 8));
         stats.doStats(strategy);
