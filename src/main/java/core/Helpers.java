@@ -45,24 +45,30 @@ public class Helpers {
         return numFailures ;
     }
 
-    public static List<Integer> poolRoll(int size) {
+    public static List<Integer> poolRoll(int size, int diceType) {
         List<Integer> result = new ArrayList<Integer>();
         for (int i=1; i <= size; i++) {
-            Dice dice = new Dice(6);
+            Dice dice = new Dice(diceType);
             result.add(dice.roll());
         }
         return result ;
     }
 
+    public static List<Integer> poolRoll(int size) {
+        return poolRoll(size, 6);
+    }
+
     public static List<Integer> withChaos(List<Integer> result) {
+        return withSimpleChaos(result, 6);
+    }
+
+    public static List<Integer> withSimpleChaos(List<Integer> result, int diceType) {
         List<Integer> newResult = new ArrayList<>();
         for (Integer i : result) {
             newResult.add(i);
-            Integer chaosDice = Integer.valueOf(i) ;
-            while (chaosDice == 6) {
-                Dice dice = new Dice(6);
-                newResult.add(chaosDice);
-                chaosDice = dice.roll();
+            if (i==diceType) {
+                Dice dice = new Dice(diceType);
+                newResult.add(dice.roll());
             }
         }
         return  newResult;

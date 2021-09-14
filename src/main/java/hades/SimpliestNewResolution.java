@@ -5,7 +5,7 @@ import org.javatuples.Pair;
 
 import java.util.List;
 
-public class ResolutionStategySimpliest implements ResolutionStrategy {
+public class SimpliestNewResolution implements ResolutionStrategy {
 
     @Override
     public Resolution resolve(Confrontation confrontation) {
@@ -28,12 +28,16 @@ public class ResolutionStategySimpliest implements ResolutionStrategy {
             }
         } else {
             int realResult = protagonistSuccess - antagonistSuccess ;
-            if (realResult > 3) {
+            if (realResult == 1) {
+                resolution.setResult(2);
+            } else if (realResult == -1) {
+                resolution.setResult(-2);
+            } else if (realResult >= 2) {
                 resolution.setResult(3);
-            } else if (realResult < -3) {
+            } else if (realResult <= -2) {
                 resolution.setResult(-3);
             } else {
-                resolution.setResult(realResult);
+                throw new RuntimeException("Should never occured");
             }
         }
 
@@ -54,10 +58,7 @@ public class ResolutionStategySimpliest implements ResolutionStrategy {
             }
         }
 
-        return resolution ;
+
+        return resolution;
     }
-
-
-
-
 }

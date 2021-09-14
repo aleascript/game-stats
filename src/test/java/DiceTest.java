@@ -4,6 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
@@ -20,6 +23,25 @@ public class DiceTest {
             assertTrue(roll >= 1);
             assertTrue(roll <= 6);
         }
+    }
+
+    @Test
+    public void testDiceDistribution() {
+        Dice dice = new Dice(6);
+        Map<Integer,Integer> distrib = new HashMap<>();
+        for (int i=0; i < 1000000; i++) {
+            int roll = dice.roll() ;
+            if (!distrib.containsKey(roll)) {
+                distrib.put(roll, 1);
+            } else {
+                distrib.put(roll, distrib.get(roll)+1);
+            }
+        }
+        log.info("Distrib=\n");
+        distrib.entrySet().stream()
+                .forEach(e -> {
+                    log.info("Result of {}  = {}", e.getKey(), e.getValue());
+                });
     }
 
 }
