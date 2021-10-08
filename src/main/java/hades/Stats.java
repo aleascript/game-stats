@@ -31,6 +31,7 @@ public class Stats {
     private Double success;
     private Double failure;
     private Double fortunes;
+    private Double rolls;
 
     private Confrontation confrontation;
 
@@ -42,6 +43,7 @@ public class Stats {
         success = 0.0;
         failure = 0.0;
         fortunes = 0.0;
+        rolls = 0.0;
     }
 
     public void doStats(ResolutionStrategy strategy) {
@@ -91,13 +93,19 @@ public class Stats {
         }
 
 
+        /*
         Map<Integer, List<Resolution>> sampleByRolls = sample.stream().collect(Collectors.groupingBy(
-                resolution -> resolution.getRolls().size()
+                resolution -> resolution.countRolls();
         ));
         for (Integer result : sampleByRolls.keySet()) {
             resultRollNumbers.add(new Pair<Integer, Double>(result, (double) 100 * sampleByRolls.get(result).size() / iterations));
-        }
+        }*/
 
+        Integer totalRolls = 0 ;
+        for (Resolution resolution: sample) {
+            totalRolls += resolution.countRolls();
+        }
+        rolls = (double) totalRolls / iterations ;
 
     }
 
@@ -121,15 +129,26 @@ public class Stats {
         }
     }
 
+    public String getDetailPercentageAsString(Double percentage) {
+        if (percentage.equals(0.0)) {
+            return "N/A";
+        } else if (percentage < 1.0) {
+            return "~0";
+        } else {
+            DecimalFormat df = new DecimalFormat("##.#");
+            return df.format(percentage);
+        }
+    }
+
 
     public String asMarkdowHeader() {
-        return "|Protagoniste|Obstacle|Succes|Echec|-3|-2|-1|+1|+2|+3|Fortunes|"
+        return "|Protagoniste|Obstacle|Succes|Echec|-3|-2|-1|+1|+2|+3|Fortunes|Jets|"
                 + "\n"
-                + "|---|---|---|---|---|---|---|---|---|---|---|";
+                + "|---|---|---|---|---|---|---|---|---|---|---|---|";
     }
 
     public String asMarkdownRaw() {
-        String template = "|%sD|%sD|%s|%s|%s|%s|%s|%s|%s|%s|%s|";
+        String template = "|%sD|%sD|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|";
         return String.format(template,
                 confrontation.getProtagonist(),
                 confrontation.getAntagonist(),
@@ -141,7 +160,8 @@ public class Stats {
                 getPercentageAsString(getPercentage(1)),
                 getPercentageAsString(getPercentage(2)),
                 getPercentageAsString(getPercentage(3)),
-                getPercentageAsString(fortunes)
+                getPercentageAsString(fortunes),
+                getDetailPercentageAsString(rolls)
         );
     }
 

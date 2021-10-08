@@ -8,12 +8,9 @@ import java.util.List;
 @Slf4j
 public class Main {
 
-    private static long ITERATIONS = 100;
+    private static int ITERATIONS = 1000000;
 
     public static void main(String... args) {
-        //simpleMain();
-        //simpleStats(new SimpliestResolutionStrategy());
-        //simpleStats(new EscalationResolutionStrategy());
 
         //simpleStats(new ProtagonistResolutionStrategy());
         //simpleStats(new BoundedProtagonistResolutionStrategy());
@@ -34,17 +31,24 @@ public class Main {
         simpleStats(new SimpliestNewResolution());
         log.info("------------------");
         simpleStats(new SimpliestNewResolutionWithoutChaos());*/
+        //log.info("--------------------");
+        //simpleStats(new SimpliestNewResolutionWithNewFortuneRules());
+
         log.info("--------------------");
-        simpleStats(new SimpliestNewResolutionWithNewFortuneRules());
+        simpleStats(new ResolutionAvecLissageWithoutChance());
+        log.info("--------------------");
+        simpleStats(new ResolutionAvecLissage());
+        log.info("--------------------");
+        simpleStats(new ResolutionAvecLissageMultiChance());
+
 
     }
 
 
     public static void testStats() {
         log.info(SimpleTest.class.getSimpleName());
-        int iterations = 100000;
         SimpleTestStats simpleTestStats = new SimpleTestStats();
-        simpleTestStats.setIterations(iterations);
+        simpleTestStats.setIterations(ITERATIONS);
         log.info(simpleTestStats.asMarkdowHeader());
         for (int i = 1; i < 10; i++) {
             simpleTestStats.setSimpleTest(new SimpleTest(i));
@@ -59,10 +63,20 @@ public class Main {
         List<Integer> diceTypes = List.of(6);
         for (Integer diceType : diceTypes) {
             log.info("Stats for D{}\n", diceType);
-            int iterations = 100000;
             Stats stats = new Stats();
-            stats.setIterations(iterations);
+            stats.setIterations(ITERATIONS);
             log.info(stats.asMarkdowHeader());
+
+            calculateAndDisplay(new Confrontation(1, 1, diceType), strategy);
+            calculateAndDisplay(new Confrontation(2, 2, diceType), strategy);
+            calculateAndDisplay(new Confrontation(3, 3, diceType), strategy);
+            calculateAndDisplay(new Confrontation(4, 4, diceType), strategy);
+            calculateAndDisplay(new Confrontation(5, 5, diceType), strategy);
+            calculateAndDisplay(new Confrontation(6, 6, diceType), strategy);
+            calculateAndDisplay(new Confrontation(7, 7, diceType), strategy);
+            calculateAndDisplay(new Confrontation(8, 8, diceType), strategy);
+            calculateAndDisplay(new Confrontation(16, 16, diceType), strategy);
+
             calculateAndDisplay(new Confrontation(1, 1, diceType), strategy);
             calculateAndDisplay(new Confrontation(1, 2, diceType), strategy);
             calculateAndDisplay(new Confrontation(1, 3 , diceType), strategy);
@@ -74,13 +88,6 @@ public class Main {
             calculateAndDisplay(new Confrontation(3, 1, diceType), strategy);
             calculateAndDisplay(new Confrontation(4, 1, diceType), strategy);
             calculateAndDisplay(new Confrontation(5, 1, diceType), strategy);
-
-            calculateAndDisplay(new Confrontation(1, 1, diceType), strategy);
-            calculateAndDisplay(new Confrontation(2, 2, diceType), strategy);
-            calculateAndDisplay(new Confrontation(3, 3, diceType), strategy);
-            calculateAndDisplay(new Confrontation(4, 4, diceType), strategy);
-            calculateAndDisplay(new Confrontation(5, 5, diceType), strategy);
-            calculateAndDisplay(new Confrontation(8, 8, diceType), strategy);
 
             calculateAndDisplay(new Confrontation(1, 2, diceType), strategy);
             calculateAndDisplay(new Confrontation(2, 3, diceType), strategy);
@@ -124,20 +131,13 @@ public class Main {
     }
 
     private static void calculateAndDisplay(Confrontation confrontation, ResolutionStrategy strategy) {
-        int iterations = 1000000;
         Stats stats = new Stats();
-        stats.setIterations(iterations);
+        stats.setIterations(ITERATIONS);
         stats.setConfrontation(confrontation);
         stats.doStats(strategy);
         log.info(stats.asMarkdownRaw());
     }
 
-    public static void simpleMain() {
-        ResolutionStrategy strategy = new SimpliestResolutionStrategy();
-        displayConfrontation(new Confrontation(1, 1), strategy);
-        displayConfrontation(new Confrontation(2, 2), strategy);
-        displayConfrontation(new Confrontation(3, 3), strategy);
-    }
 
     public static void displayConfrontation(Confrontation confrontation,
                                             ResolutionStrategy strategy) {

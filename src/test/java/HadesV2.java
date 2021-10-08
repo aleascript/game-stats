@@ -1,6 +1,5 @@
 import core.Dice;
 import hadesv2.*;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,14 +11,12 @@ public class HadesV2 {
     private static final int ITERATIONS = 10 ;
 
     @Test
-    @Ignore
     public void testEnums() {
         Result result = Result.valueOf(-1);
         log.info("Result = {}", result);
     }
 
     @Test
-    @Ignore
     public void testD12() {
 
         EngineDefinition engineDefinition = EngineGenerator.d12();

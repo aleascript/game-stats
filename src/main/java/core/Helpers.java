@@ -1,5 +1,8 @@
 package core;
 
+import hades.Resolution;
+import org.javatuples.Pair;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,6 +65,7 @@ public class Helpers {
         return withSimpleChaos(result, 6);
     }
 
+
     public static List<Integer> withSimpleChaos(List<Integer> result, int diceType) {
         List<Integer> newResult = new ArrayList<>();
         for (Integer i : result) {
@@ -74,15 +78,45 @@ public class Helpers {
         return  newResult;
     }
 
-    public static List<Integer> withSimpleChaos(List<Integer> result) {
-        List<Integer> newResult = new ArrayList<>();
-        for (Integer i : result) {
-            newResult.add(i);
-            if (i==6) {
-                Dice dice = new Dice(6);
-                newResult.add(dice.roll());
+    public static void applyChaos(Resolution resolution, int diceType) {
+
+        while (resolution.getNextDices().equals(new Pair<>(0L,0L))==false) {
+            List<Integer> newProtagonistResult = new ArrayList<>(resolution.getRoll().getValue0());
+            if (resolution.getNextDices().getValue0()>0) {
+                for (int i = 1; i <= resolution.getNextDices().getValue0(); i++) {
+                    Dice dice = new Dice(diceType);
+                    newProtagonistResult.add(dice.roll());
+                }
             }
+            List<Integer> newAntagonistResult = new ArrayList<>(resolution.getRoll().getValue1());
+            if (resolution.getNextDices().getValue1()>0) {
+                for (int i = 1; i <= resolution.getNextDices().getValue1(); i++) {
+                    Dice dice = new Dice(diceType);
+                    newAntagonistResult.add(dice.roll());
+                }
+            }
+            resolution.addRoll(new Pair<>(newProtagonistResult, newAntagonistResult));
         }
-        return  newResult;
+
+    }
+
+
+    private static boolean hasChaos(List<Integer> roll, int diceType) {
+       return roll.contains(diceType);
+    }
+
+    private static boolean shouldApplyChaos(List<Integer> precedentRoll, List<Integer> newRoll, int diceType) {
+        if (newRoll == null) {
+            return precedentRoll.contains(diceType);
+        } else if (newRoll.stream().filter(i -> i == diceType).count() == precedentRoll.stream().filter(i -> i == diceType).count()) {
+            return false ;
+        } else {
+            return true;
+        }
+    }
+
+
+    public static List<Integer> withSimpleChaos(List<Integer> result) {
+        return withSimpleChaos(result, 6);
     }
 }
