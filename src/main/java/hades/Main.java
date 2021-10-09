@@ -35,11 +35,19 @@ public class Main {
         //simpleStats(new SimpliestNewResolutionWithNewFortuneRules());
 
         log.info("--------------------");
-        simpleStats(new ResolutionAvecLissageWithoutChance());
+        simpleStats(new ResolutionAvecLissageWithoutChance(), 6);
         log.info("--------------------");
-        simpleStats(new ResolutionAvecLissage());
+        simpleStats(new ResolutionAvecLissageWithoutChance(), 10);
+
         log.info("--------------------");
-        simpleStats(new ResolutionAvecLissageMultiChance());
+        simpleStats(new ResolutionAvecLissage(), 6);
+        log.info("--------------------");
+        simpleStats(new ResolutionAvecLissage(), 10);
+
+        log.info("--------------------");
+        simpleStats(new ResolutionAvecLissageMultiChance(), 6);
+        log.info("--------------------");
+        simpleStats(new ResolutionAvecLissageMultiChance(), 10);
 
 
     }
@@ -57,10 +65,10 @@ public class Main {
         }
     }
 
-    public static void simpleStats(ResolutionStrategy strategy) {
+    public static void simpleStats(ResolutionStrategy strategy, int diceSize) {
         log.info("{}\n",strategy.getClass().getSimpleName());
         //List<Integer> diceTypes = List.of(6, 10);
-        List<Integer> diceTypes = List.of(6);
+        List<Integer> diceTypes = List.of(diceSize);
         for (Integer diceType : diceTypes) {
             log.info("Stats for D{}\n", diceType);
             Stats stats = new Stats();
