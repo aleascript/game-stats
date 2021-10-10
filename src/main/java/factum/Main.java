@@ -1,4 +1,4 @@
-package hades;
+package factum;
 
 
 import lombok.extern.slf4j.Slf4j;
@@ -11,28 +11,6 @@ public class Main {
     private static int ITERATIONS = 1000000;
 
     public static void main(String... args) {
-
-        //simpleStats(new ProtagonistResolutionStrategy());
-        //simpleStats(new BoundedProtagonistResolutionStrategy());
-        //simpleStats(new BoundedMinAndMaxProtagonistResolutionStrategy());
-        //simpleStats(new ResolutionStrategyWithChaos());
-        //log.info("-------------------");
-        //testStats();
-        //log.info("------------------");
-        //simpleStats(new ResolutionStategySimpliest());
-        //log.info("------------------");
-        //simpleStats(new ResolutionStategySimplier());
-        //log.info("------------------");
-        //simpleStats(new ResolutionStrategyWithSimpleChaos());
-        //log.info("------------------");
-        //simpleStats(new NewResolution());
-
-        /*log.info("------------------");
-        simpleStats(new SimpliestNewResolution());
-        log.info("------------------");
-        simpleStats(new SimpliestNewResolutionWithoutChaos());*/
-        //log.info("--------------------");
-        //simpleStats(new SimpliestNewResolutionWithNewFortuneRules());
 
         log.info("--------------------");
         simpleStats(new ResolutionAvecLissageWithoutChance(), 6);
@@ -53,21 +31,8 @@ public class Main {
     }
 
 
-    public static void testStats() {
-        log.info(SimpleTest.class.getSimpleName());
-        SimpleTestStats simpleTestStats = new SimpleTestStats();
-        simpleTestStats.setIterations(ITERATIONS);
-        log.info(simpleTestStats.asMarkdowHeader());
-        for (int i = 1; i < 10; i++) {
-            simpleTestStats.setSimpleTest(new SimpleTest(i));
-            simpleTestStats.doStats();
-            log.info(simpleTestStats.asMarkdownRaw());
-        }
-    }
-
     public static void simpleStats(ResolutionStrategy strategy, int diceSize) {
         log.info("{}\n",strategy.getClass().getSimpleName());
-        //List<Integer> diceTypes = List.of(6, 10);
         List<Integer> diceTypes = List.of(diceSize);
         for (Integer diceType : diceTypes) {
             log.info("Stats for D{}\n", diceType);
@@ -147,13 +112,4 @@ public class Main {
     }
 
 
-    public static void displayConfrontation(Confrontation confrontation,
-                                            ResolutionStrategy strategy) {
-        log.info("Sample for confrontation {}d vs {}d",
-                confrontation.getProtagonist(),
-                confrontation.getAntagonist());
-        for (int i = 1; i <= ITERATIONS; i++) {
-            log.info(strategy.resolve(confrontation).toString());
-        }
-    }
 }

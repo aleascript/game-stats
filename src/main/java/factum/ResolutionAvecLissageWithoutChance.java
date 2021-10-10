@@ -1,11 +1,11 @@
-package hades;
+package factum;
 
 import core.Helpers;
 import org.javatuples.Pair;
 
 import java.util.List;
 
-public class ResolutionAvecLissage implements ResolutionStrategy {
+public class ResolutionAvecLissageWithoutChance implements ResolutionStrategy {
 
     @Override
     public Resolution resolve(Confrontation confrontation) {
@@ -13,13 +13,8 @@ public class ResolutionAvecLissage implements ResolutionStrategy {
         List<Integer> protagonistResult = Helpers.poolRoll(confrontation.getProtagonist(), confrontation.getDiceType());
         List<Integer> antagonistResult = Helpers.poolRoll(confrontation.getAntagonist(), confrontation.getDiceType());
         resolution.addRoll(new Pair<List<Integer>, List<Integer>>(protagonistResult,antagonistResult));
-        List<Integer> chaosProtagonistResult = Helpers.withSimpleChaos(protagonistResult, confrontation.getDiceType());
-        List<Integer> chaosAntagonistResult = Helpers.withSimpleChaos(antagonistResult, confrontation.getDiceType());
-        if (protagonistResult.size()!=chaosProtagonistResult.size() || antagonistResult.size()!=chaosAntagonistResult.size()) {
-            resolution.addRoll(new Pair<List<Integer>, List<Integer>>(chaosProtagonistResult,chaosAntagonistResult));
-        }
-        int protagonistSuccess = Helpers.getSuccesses(chaosProtagonistResult);
-        int antagonistSuccess = Helpers.getSuccesses(chaosAntagonistResult);
+        int protagonistSuccess = Helpers.getSuccesses(protagonistResult);
+        int antagonistSuccess = Helpers.getSuccesses(antagonistResult);
 
         int realResult = protagonistSuccess - antagonistSuccess ;
         if (realResult==0) {

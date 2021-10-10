@@ -1,6 +1,6 @@
 package core;
 
-import hades.Resolution;
+import factum.Resolution;
 import org.javatuples.Pair;
 
 import java.util.ArrayList;

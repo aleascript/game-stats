@@ -1,4 +1,4 @@
-package hades;
+package factum;
 
 
 import lombok.Getter;

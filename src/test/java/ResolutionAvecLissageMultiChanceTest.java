@@ -1,5 +1,5 @@
-import hades.Confrontation;
-import hades.ResolutionAvecLissageMultiChance;
+import factum.Confrontation;
+import factum.ResolutionAvecLissageMultiChance;
 import org.junit.Test;
 
 public class ResolutionAvecLissageMultiChanceTest {
